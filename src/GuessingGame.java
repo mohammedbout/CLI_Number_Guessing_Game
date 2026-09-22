@@ -7,7 +7,7 @@ public class GuessingGame {
 
         Scanner scanner = new Scanner(System.in);
         boolean start = false;
-        int choice = 0;
+        int choice;
         int[] chances = {10, 5, 3};
 
         System.out.println("Welcome to the guessing game! ");
