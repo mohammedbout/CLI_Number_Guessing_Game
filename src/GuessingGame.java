@@ -2,7 +2,7 @@ import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Main {
+public class GuessingGame {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
@@ -29,6 +29,7 @@ public class Main {
                 if (choice < 1 || choice > 3) {
                     System.out.println("Please input either 1 or 2 or 3 to choose the difficulty");
 
+
                 } else {
                     System.out.println("I'm Thinking of an integer between 1 and 100:");
 
@@ -36,15 +37,16 @@ public class Main {
                     int randomNumber = random.nextInt(1, 100);
 
                     int attempts = 0;
+                    int userGuess;
                     
                     for (int i = 0; i < chances[choice - 1]; i++) {
 
                         System.out.print("->");
-                        int userGuess = scanner.nextInt();
+                        userGuess = scanner.nextInt();
 
                         if (userGuess > 100 || userGuess < 1) {
                             System.out.println("You should input a number between 1 and 100 !");
-                            chances[choice - 1]++;
+                            i--;
                         } else {
                             if (userGuess < randomNumber) {
                                 System.out.println("The number is greater than " + userGuess);
@@ -52,13 +54,26 @@ public class Main {
                             } else if (userGuess > randomNumber) {
                                 System.out.println("The number is less than " + userGuess);
                                 attempts++;
+                            } else {
+                                attempts++;
+                                System.out.println("You guessed the correct number (" + randomNumber +") in " + attempts + " attempts.");
+                                break;
+
                             }
                         }
 
+                        if (i == chances[choice - 1] - 1) {
+                            if (userGuess != randomNumber) {
+                               System.out.println("You failed the game :(. The correct number was " + randomNumber);
+                                start = false;
+                            }
+                        }
 
                     }
-                }
 
+
+
+                }
 
 
             } catch (InputMismatchException e) {
